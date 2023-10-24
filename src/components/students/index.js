@@ -103,7 +103,8 @@ function Students() {
         navigate(`/students/${studentList[index]._id}`);
     }, []);
 
-    const handleDeleteRow = useCallback((index) => {
+    const handleDeleteRow = useCallback((index, event) => {
+        event.stopPropagation();
         ShowConfirmDialog({
             title: "Delete Student",
             description: "Are you sure you want to delete this student?",
@@ -243,7 +244,7 @@ function Students() {
                                 className="actionIcon"
                                 fontSize="small"
                                 sx={{ cursor: "pointer" }}
-                                onClick={() => handleDeleteRow(tableMeta.rowIndex)}
+                                onClick={(event) => handleDeleteRow(tableMeta.rowIndex, event)}
                             />
                         </Tooltip>
                     </Box>
