@@ -1,5 +1,5 @@
 import React, {
-    useCallback, useEffect, useMemo, useRef
+    useCallback, useEffect, useMemo, useRef, useState
 } from "react";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
@@ -16,13 +16,15 @@ import ShowConfirmDialog from "../common/ConfirmDialog";
 import ShowSnackbarAlert, { ShowErrorAlert } from "../common/SnackBarAlert";
 
 function Placements() {
+    
     const { placementStore } = useStore();
     const tableInstanceRef = useRef(null);
     const navigate = useNavigate();
 
     const { list, totalCount, fetched } = placementStore;
 
-    const tableData = useMemo(() => toJS(list), [list, fetched]);
+    // const tableData = useMemo(() => toJS(list), [list, fetched]);
+    const [tableData, setTableData] = useState(toJS(list));
 
     const handleAddClick = useCallback(() => {
         navigate({ pathname: "add" });
@@ -38,7 +40,8 @@ function Placements() {
         });
     }, []);
 
-    const handleDeleteRow = useCallback((index) => {
+    const handleDeleteRow = useCallback((index, event) => {
+        event.stopPropagation();
         if (tableData[index].status === "confirmed") {
             ShowErrorAlert("You can delete a confirmed placement");
             return;
@@ -51,6 +54,8 @@ function Placements() {
             onConfirm: async () => {
                 try {
                     await placementStore.delete(index);
+                    // Update tableData by removing the deleted record
+                    setTableData((prevData) => prevData.filter((_, i) => i !== index));
                     ShowSnackbarAlert({
                         message: "Deleted successfully"
                     });
@@ -62,6 +67,7 @@ function Placements() {
                 }
             }
         });
+        navigate("/placements");
     }, [tableData]);
 
     const getToolBarActions = useCallback(() => (
@@ -117,7 +123,7 @@ function Placements() {
                                         className="actionIcon"
                                         fontSize="small"
                                         sx={{ cursor: "pointer" }}
-                                        onClick={() => handleDeleteRow(tableMeta.rowIndex)}
+                                        onClick={(event) => handleDeleteRow(tableMeta.rowIndex, event)}
                                     />
                                 </Tooltip>
                             ) : ""}
@@ -131,6 +137,8 @@ function Placements() {
         const fetchAll = async () => {
             if (!fetched) {
                 await placementStore.fetchAll();
+                // Update tableData after fetching the initial data
+                setTableData(toJS(placementStore.list));
             }
         };
 
