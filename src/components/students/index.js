@@ -20,7 +20,7 @@ import ShowSnackbarAlert, { ShowErrorAlert, ShowSuccessAlert } from "../common/S
 import ShowDialog from "../common/Dialog";
 import UploadFile from "../common/UploadFile";
 import {
-    FETCH_LIMIT, getYearsList, STUDENT_IMPORT_REQUIRED_HEADERS, TermsList
+    FETCH_LIMIT, getYearsList, STUDENT_IMPORT_REQUIRED_HEADERS, StudyYearList, TermsList
 } from "../utils";
 
 function Students() {
@@ -181,8 +181,18 @@ function Students() {
         // },
         // { name: "school", label: "School" },
         {
+            name: "study_year",
+            label: "Study Year",
+            options: {
+                filter: true,
+                filterType: "dropdown",
+                filterOptions: { names: StudyYearList },
+                filterList: filters.study_year ? [filters.study_year] : []
+            }
+        },               
+        {
             name: "year",
-            label: "Year",
+            label: "Term year",
             options: {
                 filter: true,
                 filterType: "dropdown",
@@ -318,7 +328,12 @@ function Students() {
                         if (type === "reset") {
                             setFilters({});
                         } else {
-                            const value = column === "year" ? valueArr[4][0] : valueArr[5][0];
+                            let value;
+                            if(column === "term"){
+                                value =  valueArr[6][0]
+                            }else{
+                                value = column === "year" ? valueArr[5][0] : valueArr[4][0];
+                            }
                             handleFilterChange(column, value);
                         }
                     },

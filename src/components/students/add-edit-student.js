@@ -93,8 +93,9 @@ export default function AddEditStudent() {
         const email = emailRef.current.value();
         // const phoneNumber = phoneNumberRef.current.value();
         // const school = schoolRef.current.getSelectedValue();
-        const year = studyYearRef.current.getSelectedValue();
-        const term = yearRef.current.getSelectedValue() + "-" + termRef.current.getSelectedValue();
+        const study_year = studyYearRef.current.getSelectedValue();
+        const year = yearRef.current.getSelectedValue();
+        const term = termRef.current.getSelectedValue();
         const notes = notesRef.current.value();
 
         const isFNameValid = validate(fname, fnameRef.current, "Please enter the First name");
@@ -103,15 +104,20 @@ export default function AddEditStudent() {
         const isEmailValid = validateEmailAddress();
         // const isPhoneValid = validate(phoneNumber, phoneNumberRef.current, "Please enter the phone number");
         // const isSchoolValid = validate(school, schoolRef.current, "Please select the school");
+        const isstudyYearValid = validate(year, studyYearRef.current, "Please select the year");
         const isYearValid = validate(year, yearRef.current, "Please select the year");
         const isTermValid = validate(term, termRef.current, "Please select the term");
 
-        if (!isFNameValid || !isLNameValid || !isStudentIdValid || !isEmailValid || !isYearValid || !isTermValid) {
+        if (!isFNameValid || !isLNameValid || !isStudentIdValid || !isEmailValid || !isstudyYearValid || !isYearValid || !isTermValid) {
+            ShowSnackbarAlert({
+                message: "Please fill valid details!!",
+                severity: "error"
+            });
             return;
         }
 
         const params = {
-            fname, lname, studentId, email, year, term, notes
+            fname, lname, studentId, email, study_year, term, year, notes
         };
         try {
             if (editObj) {
@@ -180,7 +186,7 @@ export default function AddEditStudent() {
                     label="Study Year"
                     ref={studyYearRef}
                     required
-                    selected={editObj?.studyYear || ""}
+                    selected={editObj?.study_year || ""}
                     options={StudyYearList}
                 />
                 
