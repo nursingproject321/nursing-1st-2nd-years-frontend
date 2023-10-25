@@ -9,6 +9,8 @@ const EmailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@
 
 export const isValidEmailAddress = (email) => EmailRegex.test(String(email).toLowerCase());
 
+export const StudyYearList = ["1", "2", "3"];
+
 export const getYearsList = () => {
     const currentYear = new Date().getFullYear();
     return Array.from({ length: 5 }, (_, i) => `${currentYear - i}`);

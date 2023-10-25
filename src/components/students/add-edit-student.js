@@ -13,7 +13,7 @@ import SelectBox from "../common/SelectBox";
 import { useStore } from "../../store";
 import ShowSnackbarAlert from "../common/SnackBarAlert";
 import SkeletonLoader from "../common/SkeletonLoader";
-import { getYearsList, isValidEmailAddress, TermsList } from "../utils";
+import { StudyYearList, getYearsList, isValidEmailAddress, TermsList } from "../utils";
 import { EVENTS, GlobalEventEmitter } from "../../services";
 import TabPanel from "../common/TabPanel";
 import StudentPlacementHistory from "./student-placement-history";
@@ -39,6 +39,7 @@ export default function AddEditStudent() {
     const emailRef = useRef(null);
     // const phoneNumberRef = useRef(null);
     // const schoolRef = useRef(null);
+    const studyYearRef = useRef(null);
     const yearRef = useRef(null);
     const termRef = useRef(null);
     const notesRef = useRef(null);
@@ -92,8 +93,8 @@ export default function AddEditStudent() {
         const email = emailRef.current.value();
         // const phoneNumber = phoneNumberRef.current.value();
         // const school = schoolRef.current.getSelectedValue();
-        const year = yearRef.current.getSelectedValue();
-        const term = termRef.current.getSelectedValue();
+        const year = studyYearRef.current.getSelectedValue();
+        const term = termRef.current.getSelectedValue() + " " + yearRef.current.getSelectedValue();
         const notes = notesRef.current.value();
 
         const isFNameValid = validate(fname, fnameRef.current, "Please enter the First name");
@@ -176,19 +177,29 @@ export default function AddEditStudent() {
                     options={schoolList}
                 /> */}
                 <SelectBox
-                    label="Select Year"
-                    ref={yearRef}
+                    label="Study Year"
+                    ref={studyYearRef}
                     required
-                    selected={editObj?.year || ""}
-                    options={getYearsList()}
+                    selected={editObj?.studyYear || ""}
+                    options={StudyYearList}
                 />
-                <SelectBox
-                    label="Select Term"
-                    ref={termRef}
-                    selected={editObj?.term || ""}
-                    options={TermsList}
-                    required
+                
+                <Stack spacing={2} direction="row">
+                    <SelectBox
+                        label="Select Term"
+                        ref={termRef}
+                        selected={editObj?.term || ""}
+                        options={TermsList}
+                        required
                 />
+                    <SelectBox
+                        label="Term Year"
+                        ref={yearRef}
+                        required
+                        selected={editObj?.year || ""}
+                        options={getYearsList()}
+                />
+                </Stack>
                 <TextField
                     label="Notes"
                     ref={notesRef}
