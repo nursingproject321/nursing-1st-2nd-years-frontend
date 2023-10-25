@@ -94,7 +94,7 @@ export default function AddEditStudent() {
         // const phoneNumber = phoneNumberRef.current.value();
         // const school = schoolRef.current.getSelectedValue();
         const year = studyYearRef.current.getSelectedValue();
-        const term = termRef.current.getSelectedValue() + " " + yearRef.current.getSelectedValue();
+        const term = yearRef.current.getSelectedValue() + "-" + termRef.current.getSelectedValue();
         const notes = notesRef.current.value();
 
         const isFNameValid = validate(fname, fnameRef.current, "Please enter the First name");
