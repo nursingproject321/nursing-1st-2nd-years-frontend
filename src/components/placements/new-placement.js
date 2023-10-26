@@ -19,7 +19,7 @@ import { AppBar, Toolbar } from "@mui/material";
 import { useStore } from "../../store";
 import PageLoader from "../common/PageLoader";
 import SelectBox from "../common/SelectBox";
-import { getYearsList, TermsList } from "../utils";
+import { getYearsList, TermsList, StudyYearList } from "../utils";
 import PlacementLocationsTable from "./placement-locations-table";
 import { ShowErrorAlert, ShowSuccessAlert } from "../common/SnackBarAlert";
 import TextField from "../common/TextField";
@@ -38,6 +38,7 @@ export default function NewPlacement() {
     const yearRef = useRef(null);
     const termRef = useRef(null);
     const nameRef = useRef(null);
+    const studyYearRef = useRef(null);
     const locationTableRef = useRef(null);
 
     const goBack = useCallback(() => {
@@ -49,6 +50,11 @@ export default function NewPlacement() {
     };
 
     const handleGoToLocations = useCallback(() => {
+        const study_year = studyYearRef.current.getSelectedValue();
+        if (!study_year) {
+            ShowErrorAlert("Please select the Student's study year");
+            return;
+        }
         const year = yearRef.current.getSelectedValue();
         if (!year) {
             ShowErrorAlert("Please select the Student's year");
@@ -62,6 +68,7 @@ export default function NewPlacement() {
 
         setStateObj((old) => ({
             ...old,
+            study_year,
             year,
             term
         }));
@@ -112,19 +119,30 @@ export default function NewPlacement() {
         return (
             <Stack sx={{ width: "30%", my: 2 }} spacing={2}>
                 <SelectBox
-                    label="Select Year"
-                    ref={yearRef}
-                    selected={stateObj.year || ""}
+                    label="Select Study Year"
+                    ref={studyYearRef}
+                    selected={stateObj.study_year || ""}
                     required
-                    options={getYearsList()}
+                    options={StudyYearList}
                 />
-                <SelectBox
-                    label="Select Term"
-                    ref={termRef}
-                    options={TermsList}
-                    selected={stateObj.term || ""}
-                    required
+                <Stack spacing={2} direction="row">
+                    <SelectBox
+                        label="Select Term"
+                        ref={termRef}
+                        options={TermsList}
+                        selected={stateObj.term || ""}
+                        required
                 />
+                    <SelectBox
+                        label="Select Year"
+                        ref={yearRef}
+                        selected={stateObj.year || ""}
+                        required
+                        options={getYearsList()}
+                />
+                </Stack>
+                
+                
                 <Box>
                     <Button
                         variant="contained"
