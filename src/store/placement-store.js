@@ -68,7 +68,7 @@ export default class PlacementStore {
             this.fetched = false;
         });
 
-        return placementId;
+        return response;
     }
 
     async update(id, params) {

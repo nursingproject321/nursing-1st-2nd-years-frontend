@@ -75,37 +75,57 @@ export default function NewPlacement() {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }, []);
 
-    const handleGoToEnterDetails = useCallback(() => {
+    const createPlacement = useCallback(async () => {
+        try {
+            const response = await placementStore.createPlacement({
+                ...stateObj
+            });
+            const id = response.data._id;
+            if (response.status >= 200 && response.status < 300) {
+                ShowSuccessAlert("Created Successfully");
+                navigate(`/placements/${id}`);
+            } else {
+                console.error("Request failed with status code: " + response.status);
+                ShowErrorAlert("Error:", response.data.message);
+            }
+            // ShowSuccessAlert("Created Successfully");
+            // navigate(`/placements/${id}`);
+        } catch (err) {
+            ShowErrorAlert(err.message);
+        }
+    }, [stateObj]);
+
+    const handleCreate = useCallback(() => {
         const selected = locationTableRef.current.getSelected();
         if (selected.length > 0) {
             const newSelected = {
                 ...stateObj, locations: selected
             };
             setStateObj(newSelected);
-            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+            createPlacement();
             return;
         }
 
         ShowErrorAlert("Please select the placement locations to allocate the students");
     }, [stateObj]);
 
-    const handleCreate = useCallback(async () => {
-        const name = nameRef.current.value();
-        if (!name) {
-            nameRef.current.setError("Please enter the name for this placement");
-            return;
-        }
-        try {
-            const id = await placementStore.createPlacement({
-                ...stateObj,
-                name
-            });
-            ShowSuccessAlert("Created Successfully");
-            navigate(`/placements/${id}`);
-        } catch (err) {
-            ShowErrorAlert(err.message);
-        }
-    }, [stateObj]);
+    // const handleCreate = useCallback(async () => {
+    //     const name = nameRef.current.value();
+    //     if (!name) {
+    //         nameRef.current.setError("Please enter the name for this placement");
+    //         return;
+    //     }
+    //     try {
+    //         const id = await placementStore.createPlacement({
+    //             ...stateObj,
+    //             name
+    //         });
+    //         ShowSuccessAlert("Created Successfully");
+    //         navigate(`/placements/${id}`);
+    //     } catch (err) {
+    //         ShowErrorAlert(err.message);
+    //     }
+    // }, [stateObj]);
 
     const fetchDetailsIfNeeded = useCallback(async () => {
         if (!placementLocationStore.fetched) {
@@ -173,10 +193,10 @@ export default function NewPlacement() {
                 <Box>
                     <Button
                         variant="contained"
-                        onClick={handleGoToEnterDetails}
+                        onClick={handleCreate}
                         sx={{ mt: 1, mr: 1 }}
                     >
-                        Next
+                        Create
                     </Button>
                     <Button
                         onClick={handleBack}
@@ -189,53 +209,53 @@ export default function NewPlacement() {
         );
     }
 
-    function renderEnterPlacementDetails() {
-        return (
-            <Stack sx={{ width: "30%", my: 2 }} spacing={2}>
-                {/* <Alert severity="info">
-                    <AlertTitle>
-                        Please confirm the following:
-                    </AlertTitle>
-                    <Box>
-                        Selected Year -
-                        {" "}
-                        <strong>{stateObj.year}</strong>
-                    </Box>
-                    <Box>
-                        Selected Term -
-                        {" "}
-                        <strong>{stateObj.term}</strong>
-                    </Box>
-                    <Box>
-                        Selected Locations -
-                        {" "}
-                        <strong>{stateObj.locations?.length || 0}</strong>
-                    </Box>
-                </Alert> */}
-                <TextField
-                    label="Name"
-                    ref={nameRef}
-                    value={stateObj.name || ""}
-                    required
-                    autoFocus
-                />
-                <Box>
-                    <LoadingButton
-                        variant="contained"
-                        onClick={handleCreate}
-                        sx={{ mt: 1, mr: 1 }}
-                        label="Create"
-                    />
-                    <Button
-                        onClick={handleBack}
-                        sx={{ mt: 1, mr: 1 }}
-                    >
-                        Back
-                    </Button>
-                </Box>
-            </Stack>
-        );
-    }
+    // function renderEnterPlacementDetails() {
+    //     return (
+    //         <Stack sx={{ width: "30%", my: 2 }} spacing={2}>
+    //             {/* <Alert severity="info">
+    //                 <AlertTitle>
+    //                     Please confirm the following:
+    //                 </AlertTitle>
+    //                 <Box>
+    //                     Selected Year -
+    //                     {" "}
+    //                     <strong>{stateObj.year}</strong>
+    //                 </Box>
+    //                 <Box>
+    //                     Selected Term -
+    //                     {" "}
+    //                     <strong>{stateObj.term}</strong>
+    //                 </Box>
+    //                 <Box>
+    //                     Selected Locations -
+    //                     {" "}
+    //                     <strong>{stateObj.locations?.length || 0}</strong>
+    //                 </Box>
+    //             </Alert> */}
+    //             <TextField
+    //                 label="Name"
+    //                 ref={nameRef}
+    //                 value={stateObj.name || ""}
+    //                 required
+    //                 autoFocus
+    //             />
+    //             <Box>
+    //                 <LoadingButton
+    //                     variant="contained"
+    //                     onClick={handleCreate}
+    //                     sx={{ mt: 1, mr: 1 }}
+    //                     label="Create"
+    //                 />
+    //                 <Button
+    //                     onClick={handleBack}
+    //                     sx={{ mt: 1, mr: 1 }}
+    //                 >
+    //                     Back
+    //                 </Button>
+    //             </Box>
+    //         </Stack>
+    //     );
+    // }
 
     const steps = useMemo(() => [
         {
@@ -249,13 +269,13 @@ export default function NewPlacement() {
             name: "Select Placement Locations",
             description: "Select the Placement locations to assign students",
             renderFunc: renderSelectLocations
-        },
-        {
-            id: "enterPlacementDetails",
-            name: "Placement Details",
-            description: "Enter the name for the Placement for future use",
-            renderFunc: renderEnterPlacementDetails
         }
+        // {
+        //     id: "enterPlacementDetails",
+        //     name: "Placement Details",
+        //     description: "Enter the name for the Placement for future use",
+        //     renderFunc: renderEnterPlacementDetails
+        // }
     ], [stateObj]);
 
     function getStepDescription(step, index) {
