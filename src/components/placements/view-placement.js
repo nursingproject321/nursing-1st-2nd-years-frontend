@@ -138,8 +138,8 @@ export default function ViewPlacement() {
                         component="div"
                         align="center"
                     >
-                        <Typography variant="h5" align="center">{data?.term || "-"}</Typography>
-                        Term
+                        <Typography variant="h5" align="center">{data?.study_year || "-"}</Typography>
+                        Study Year
                     </Typography>
 
                     <Typography
@@ -147,8 +147,8 @@ export default function ViewPlacement() {
                         component="div"
                         align="center"
                     >
-                        <Typography variant="h5" align="center">{data?.year || "-"}</Typography>
-                        Year
+                        <Typography variant="h5" align="center">{data.term} {data.year}</Typography>
+                        Term
                     </Typography>
 
                     <Typography
