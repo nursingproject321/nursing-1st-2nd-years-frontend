@@ -99,7 +99,7 @@ export default function NewPlacement() {
             // ShowSuccessAlert("Created Successfully");
             // navigate(`/placements/${id}`);
         } catch (err) {
-            ShowErrorAlert(err.message);
+            ShowErrorAlert(err.response.data.message);
         }
     }, [stateObj]);
 
