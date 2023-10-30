@@ -66,6 +66,14 @@ export default function NewPlacement() {
             return;
         }
 
+        const { list, totalCount, fetched } = placementStore;
+        for (const place of list) {
+            if (place.study_year == study_year && place.term == term && place.year == year) {
+                ShowErrorAlert("Placement for the selected Study Year and term already exists");
+                return; // Return to exit the function
+            }
+        }
+
         setStateObj((old) => ({
             ...old,
             study_year,
@@ -131,7 +139,9 @@ export default function NewPlacement() {
         if (!placementLocationStore.fetched) {
             await placementLocationStore.fetchAll();
         }
-
+        if (!placementStore.fetched) {
+            await placementStore.fetchAll();
+        }
         setLoading(false);
     }, []);
 
