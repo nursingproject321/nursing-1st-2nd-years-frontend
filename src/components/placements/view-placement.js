@@ -18,7 +18,7 @@ import ShowConfirmDialog from "../common/ConfirmDialog";
 import ShowSnackbarAlert, { ShowErrorAlert } from "../common/SnackBarAlert";
 
 export default function ViewPlacement() {
-    const { placementStore } = useStore();
+    const { studentStore, placementStore } = useStore();
 
     const { id } = useParams();
 
@@ -58,7 +58,8 @@ export default function ViewPlacement() {
                     await placementStore.confirmPlacement(id);
                     ShowSnackbarAlert({
                         message: "Placement confirmed successfully"
-                    });
+                    }); 
+                    studentStore.refetch();
                 } catch (err) {
                     ShowSnackbarAlert({
                         message: err.response?.data?.message || err.message,

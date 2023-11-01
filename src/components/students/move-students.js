@@ -16,7 +16,7 @@ import axios from "axios";
 
 
 export default function MoveStudents() {
-    const { studentStore, schoolStore } = useStore();
+    const { studentStore } = useStore();
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(true);
