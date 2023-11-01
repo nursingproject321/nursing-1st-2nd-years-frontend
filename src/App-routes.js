@@ -13,6 +13,7 @@ import AddEditInstructor from "./components/instructors/add-edit-instructor";
 import PlacementLocations from "./components/placement-locations";
 import AddEditPlacementLocation from "./components/placement-locations/add-edit-placement-location";
 import AddEditStudent from "./components/students/add-edit-student";
+import MoveStudents from "./components/students/move-students";
 import Placements from "./components/placements";
 import NewPlacement from "./components/placements/new-placement";
 import ViewPlacement from "./components/placements/view-placement";
@@ -44,6 +45,7 @@ export default function AppRoutes() {
                     <Route path="" element={<Students />} />
                     <Route path="add" element={<AddEditStudent />} />
                     <Route path=":id" element={<AddEditStudent />} />
+                    <Route path="move-students" element={<MoveStudents />} />
                     <Route path="*" element={<Navigate to="/students" replace />} />
                 </Route>
                 <Route path="/hospitals" element={<Outlet />}>

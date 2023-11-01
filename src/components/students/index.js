@@ -11,6 +11,7 @@ import Tooltip from "@mui/material/Tooltip";
 import EditIcon from "@mui/icons-material/EditRounded";
 import { useNavigate } from "react-router-dom";
 import UploadIcon from "@mui/icons-material/Upload";
+import GroupsIcon from "@mui/icons-material/Groups";
 import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";
 import { useStore } from "../../store";
@@ -36,6 +37,10 @@ function Students() {
 
     const handleAddClick = useCallback(() => {
         navigate({ pathname: "add" });
+    }, []);
+
+    const handleMoveStudentsClick = useCallback(() => {
+        navigate({ pathname: "move-students" });
     }, []);
 
     const handleImportClick = useCallback(() => {
@@ -159,6 +164,12 @@ function Students() {
                 onClick={handleImportClick}
             >
                 Import
+            </Button>
+            <Button
+                startIcon={<GroupsIcon />}
+                onClick={handleMoveStudentsClick}
+            >
+                Move Students
             </Button>
         </Box>
     ), []);

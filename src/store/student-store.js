@@ -31,6 +31,11 @@ export default class StudentStore {
         });
     }
 
+    async refetch() {
+        this.fetched = false;
+        await this.fetch();
+    }
+
     async fetchPlacements(id) {
         const rowIndex = this.list.findIndex((obj) => obj._id === id);
         const student = this.list[rowIndex];
