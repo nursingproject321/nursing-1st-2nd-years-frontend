@@ -2,7 +2,7 @@ import React, {
     useCallback, useEffect, useRef, useState
 } from "react";
 import Box from "@mui/material/Box";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
@@ -25,6 +25,7 @@ export default function ViewPlacement() {
     const [data, setData] = useState(null);
 
     const studentsTableRef = useRef(null);
+    const navigate = useNavigate();
 
     const handleConfirmPlacement = useCallback(async () => {
         if (studentsTableRef.current.isUnSavedChangesPresent()) {
@@ -60,6 +61,7 @@ export default function ViewPlacement() {
                         message: "Placement confirmed successfully"
                     }); 
                     studentStore.refetch();
+                    navigate("/students");
                 } catch (err) {
                     ShowSnackbarAlert({
                         message: err.response?.data?.message || err.message,

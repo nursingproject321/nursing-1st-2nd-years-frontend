@@ -23,6 +23,8 @@ import UploadFile from "../common/UploadFile";
 import {
     FETCH_LIMIT, getYearsList, STUDENT_IMPORT_REQUIRED_HEADERS, StudyYearList, TermsList
 } from "../utils";
+import StudentStore from "../../store/student-store";
+import axios from "axios";
 
 function Students() {
     const { studentStore } = useStore();
@@ -40,7 +42,46 @@ function Students() {
     }, []);
 
     const handleMoveStudentsClick = useCallback(() => {
-        navigate({ pathname: "move-students" });
+        ShowDialog({
+            title: "Move Students to next Term",
+            actionBtnName: "Move",
+            content: (
+                <>
+                    <Alert severity="warning" sx={{ my: 1 }}>
+                        <Typography variant="subtitle1">
+                            <Typography variant="subtitle2"
+                                mr={1}
+                                component="span">
+                                Note:
+                            </Typography>
+                            Once Students are moved to the next Term, you can't move them back.
+                        </Typography>
+                    </Alert>
+                    <Typography variant="subtitle2" color="error">
+                        Are you sure you want to move all students to the next term? Click Move to confirm.
+                    </Typography>
+                </>
+            ),
+            onConfirm: async () => {
+                try {
+                    const response = await axios.post("/students/moveStudents");
+                    ShowSnackbarAlert({
+                        message: response.data.message,
+                        severity: "success"
+                    });
+                    useEffect(() => {
+                        studentStore.refetch();
+                        list = studentStore.list;
+                    }, [studentStore.list]);
+                    navigate("/students");
+                } catch (error) {
+                    ShowSnackbarAlert({
+                        message: error.response.data.message,
+                        severity: "error"
+                    });
+                }
+            }
+        });
     }, []);
 
     const handleImportClick = useCallback(() => {
