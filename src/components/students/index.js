@@ -6,7 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Box from "@mui/material/Box";
 import { observer } from "mobx-react";
-import { toJS } from "mobx";
+import { toJS, observable, action, makeObservable } from "mobx";
 import Tooltip from "@mui/material/Tooltip";
 import EditIcon from "@mui/icons-material/EditRounded";
 import { useNavigate } from "react-router-dom";
@@ -69,11 +69,11 @@ function Students() {
                         message: response.data.message,
                         severity: "success"
                     });
-                    useEffect(() => {
-                        studentStore.refetch();
-                        list = studentStore.list;
-                    }, [studentStore.list]);
-                    navigate("/students");
+                    // await studentStore.refetch(); 
+                    // list = studentStore.list;
+                    // setCurrentPage(0);
+                    // setLoading(false);
+                    window.location.reload();
                 } catch (error) {
                     ShowSnackbarAlert({
                         message: error.response.data.message,
@@ -333,6 +333,7 @@ function Students() {
                 start: 0,
                 ...filters
             });
+            setCurrentPage(0);
             setLoading(false);
         };
 
