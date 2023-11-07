@@ -66,7 +66,7 @@ export default function NewPlacement() {
             return;
         }
 
-        const { list, totalCount, fetched } = placementStore;
+        const { list } = placementStore;
         for (const place of list) {
             if (place.study_year == study_year && place.term == term && place.year == year) {
                 ShowErrorAlert("Placement for the selected Study Year and term already exists");
@@ -85,8 +85,9 @@ export default function NewPlacement() {
 
     const createPlacement = useCallback(async () => {
         try {
+            const selected = locationTableRef.current.getSelected();
             const response = await placementStore.createPlacement({
-                ...stateObj
+                ...stateObj, locations: selected
             });
             const id = response.data._id;
             if (response.status >= 200 && response.status < 300) {
