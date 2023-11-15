@@ -9,12 +9,21 @@ const EmailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@
 
 export const isValidEmailAddress = (email) => EmailRegex.test(String(email).toLowerCase());
 
-export const StudyYearList = ["1", "2", "3"];
+export const StudyYearList = ["1", "2", "3", "4"];
+
+// export const getYearsList = () => {
+//     const currentYear = new Date().getFullYear();
+//     return Array.from({ length: 5 }, (_, i) => `${currentYear - i}`);
+// };
 
 export const getYearsList = () => {
     const currentYear = new Date().getFullYear();
-    return Array.from({ length: 5 }, (_, i) => `${currentYear - i}`);
+    const startYear = currentYear - 5;
+    const endYear = currentYear + 3;
+  
+    return Array.from({ length: endYear - startYear + 1 }, (_, i) => `${startYear + i}`);
 };
+  
 
 export const TermsList = ["Fall", "Winter", "Inter Summer"];
 
