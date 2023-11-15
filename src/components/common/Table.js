@@ -6,6 +6,7 @@ const Table = forwardRef(({ options = {}, ...otherProps }, ref) => (
         ref={ref}
         options={{
             tableBodyHeight: "calc(100vh - 180px)",
+            // tableBodyMaxWidth: "calc(100vh - 180px)", // Added for vertical scrollbar
             rowsPerPage: 50,
             rowsPerPageOptions: [50],
             print: false,
@@ -14,6 +15,10 @@ const Table = forwardRef(({ options = {}, ...otherProps }, ref) => (
                     noMatch: "No records found"
                 }
             },
+            // css: {
+            //     // Added to enable horizontal scrollbar
+            //     overflowX: "auto"
+            // },
             ...options
         }}
         {...otherProps}

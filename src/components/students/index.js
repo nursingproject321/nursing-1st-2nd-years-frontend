@@ -350,7 +350,7 @@ function Students() {
     const isFilterValueExist = Object.values(filters).filter((val) => val).length > 0;
 
     return (
-        <Box className="table-container">
+        <Box className="table-container" sx={{ overflowX: "auto", width: "calc(100vw - 300px)" }}>
             <Table
                 key={`${Date.now()}`}
                 data={tableData}
@@ -396,7 +396,8 @@ function Students() {
                             noMatch: loading ? "Fetching..." : "No records found"
                         }
                     },
-                    onRowClick: (data, tableMeta) => handleEditRow(tableMeta.rowIndex)
+                    onRowClick: (data, tableMeta) => handleEditRow(tableMeta.rowIndex),
+                    center: true
                 }}
             />
         </Box>
