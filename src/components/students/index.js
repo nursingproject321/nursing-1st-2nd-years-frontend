@@ -239,7 +239,8 @@ function Students() {
                 filter: true,
                 filterType: "dropdown",
                 filterOptions: { names: StudyYearList },
-                filterList: filters.study_year ? [filters.study_year] : []
+                filterList: filters.study_year ? [filters.study_year] : [],
+                customBodyRender: (value) => <div style={{ textAlign: "center" }}>{value}</div>
             }
         },               
         {
