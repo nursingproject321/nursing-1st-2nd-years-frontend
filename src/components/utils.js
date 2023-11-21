@@ -68,8 +68,10 @@ export const STUDENT_IMPORT_REQUIRED_HEADERS = {
     // "Phone Number": "phoneNumber",
     // "School Name": "schoolName",
     // "School Campus": "schoolCampus",
-    Year: "year",
+    "Study Year": "study_year",
     Term: "term",
+    "Joined Year": "joined_year",
+    "Joined Term": "joined_term",
     Notes: "notes"
 };
 
