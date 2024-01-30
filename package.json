@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@codewell/super-search": "^2.0.0",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.10.6",
@@ -43,7 +44,6 @@
       "react-app",
       "react-app/jest"
     ]
-   
   },
   "browserslist": {
     "production": [
