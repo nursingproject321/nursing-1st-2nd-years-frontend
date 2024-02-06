@@ -191,10 +191,11 @@ function Students() {
       actionBtnName: "Delete",
       onConfirm: async () => {
         try {
-          await studentStore.deleteMultiple(selectedRows);
           ShowSnackbarAlert({
-            message: "Deleted successfully",
+            message: "Deleted successfully -",
           });
+          await studentStore.deleteMultiple(selectedRows);
+          window.location.reload();
         } catch (err) {
           ShowSnackbarAlert({
             message: err.message,
@@ -231,12 +232,12 @@ function Students() {
       },
       {
         name: "fname",
-        label: "First name",
+        label: "First Name",
         options: { filter: false, search: true },
       },
       {
         name: "lname",
-        label: "Last name",
+        label: "Last Name",
         options: { filter: false, search: true },
       },
       {
@@ -298,7 +299,17 @@ function Students() {
         name: "notes",
         label: "Notes",
         search: true,
-        options: { filter: false },
+        options: {
+          filter: false,
+          setCellProps: () => ({
+            style: {
+              maxWidth: "10px",
+              textOverflow: "ellipsis !important",
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+            },
+          }),
+        },
       },
       {
         name: "",
@@ -391,9 +402,9 @@ function Students() {
         options={{
           // filter: false,
 
-          search: true,
+          search: false,
           pagination: true,
-          //   serverSide: true,
+          serverSide: true,
           sortFilterList: false,
           count: totalCount,
           page: currentPage,

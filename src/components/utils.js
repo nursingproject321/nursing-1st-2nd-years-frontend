@@ -5,9 +5,11 @@ import React from "react";
 
 export const FETCH_LIMIT = 50;
 
-const EmailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const EmailRegex =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-export const isValidEmailAddress = (email) => EmailRegex.test(String(email).toLowerCase());
+export const isValidEmailAddress = (email) =>
+  EmailRegex.test(String(email).toLowerCase());
 
 export const StudyYearList = ["1", "2", "3", "4"];
 
@@ -17,88 +19,101 @@ export const StudyYearList = ["1", "2", "3", "4"];
 // };
 
 export const getYearsList = () => {
-    const currentYear = new Date().getFullYear();
-    const startYear = currentYear - 5;
-    const endYear = currentYear + 3;
-  
-    return Array.from({ length: endYear - startYear + 1 }, (_, i) => `${startYear + i}`);
+  const currentYear = new Date().getFullYear();
+  const startYear = currentYear - 5;
+  const endYear = currentYear + 3;
+
+  return Array.from(
+    { length: endYear - startYear + 1 },
+    (_, i) => `${startYear + i}`
+  );
 };
-  
 
 export const TermsList = ["Fall", "Winter", "Inter Summer"];
 
-export const parseCSVFile = (file) => new Promise((resolve, reject) => {
+export const parseCSVFile = (file) =>
+  new Promise((resolve, reject) => {
     Papa.parse(file, {
-        header: true,
-        // transformHeader: (header) => header.toLowerCase(),
-        complete(results) {
-            resolve(results.data);
-        },
-        error(err) {
-            reject(err);
-        }
+      header: true,
+      // transformHeader: (header) => header.toLowerCase(),
+      complete(results) {
+        resolve(results.data);
+      },
+      error(err) {
+        reject(err);
+      },
     });
-});
+  });
 
-export const checker = (arr, target) => arr.every((value) => target.includes(value.toLowerCase()));
+export const checker = (arr, target) =>
+  arr.every((value) => target.includes(value.toLowerCase()));
 
 export const HOSPITAL_IMPORT_REQUIRED_HEADERS = {
-    Name: "name",
-    Campus: "campus",
-    Address: "address"
+  Name: "name",
+  Campus: "campus",
+  Address: "address",
 };
 
 export const SCHOOL_IMPORT_REQUIRED_HEADERS = {
-    Name: "name",
-    Campus: "campus"
+  Name: "name",
+  Campus: "campus",
 };
 
 export const INSTRUCTOR_IMPORT_REQUIRED_HEADERS = {
-    "First Name": "fname",
-    "Last Name": "lname",
-    "Email Address": "email",
-    Comments: "comments"
+  "First Name": "fname",
+  "Last Name": "lname",
+  "Email Address": "email",
+  Comments: "comments",
 };
 
 export const STUDENT_IMPORT_REQUIRED_HEADERS = {
-    "Student ID": "studentId",
-    "First Name": "fname",
-    "Last Name": "lname",
-    Email: "email",
-    // "Phone Number": "phoneNumber",
-    // "School Name": "schoolName",
-    // "School Campus": "schoolCampus",
-    "Study Year": "study_year",
-    Term: "term",
-    "Joined Year": "joined_year",
-    "Joined Term": "joined_term",
-    Notes: "notes"
+  "Student ID": "studentId",
+  "First Name": "fname",
+  "Last Name": "lname",
+  Email: "email",
+  // "Phone Number": "phoneNumber",
+  // "School Name": "schoolName",
+  // "School Campus": "schoolCampus",
+  "Study Year": "study_year",
+  Term: "term",
+
+  //   "Joined Year": "joined_year",
+  //   "Joined Term": "joined_term",
+  Notes: "notes",
 };
 
 export const PLACEMENT_LOCATIONS_REQUIRED_HEADERS = {
-    Campus: "campus",
-    Instructor: "instructor",
-    Unit: "unit",
-    Section: "section",
-    Day: "day",
-    Shift: "shift",
-    Seats: "seats"
+  Campus: "campus",
+  Instructor: "instructor",
+  Unit: "unit",
+  Section: "section",
+  Day: "day",
+  Shift: "shift",
+  Seats: "seats",
 };
 
 export const getStatusText = (status = "created", props = {}) => {
-    switch (status) {
-        case "confirmed":
-            return <Typography {...props} color={green[500]}>CONFIRMED</Typography>;
-        default:
-            return <Typography {...props} color={blue[500]}>YET TO CONFIRM</Typography>;
-    }
+  switch (status) {
+    case "confirmed":
+      return (
+        <Typography {...props} color={green[500]}>
+          CONFIRMED
+        </Typography>
+      );
+    default:
+      return (
+        <Typography {...props} color={blue[500]}>
+          YET TO CONFIRM
+        </Typography>
+      );
+  }
 };
 
 export const toDefaultDateFormat = (date, includeTime = false) => {
-    // convert to "mm/dd/yy" format
-    const dateMonth = date.getMonth() + 1; // 10
-    const dateDay = date.getDate(); // 30
-    const dateYear = date.getFullYear();
+  // convert to "mm/dd/yy" format
+  const dateMonth = date.getMonth() + 1; // 10
+  const dateDay = date.getDate(); // 30
+  const dateYear = date.getFullYear();
 
-    return `${dateMonth}/${dateDay}/${dateYear}`;
+  return `${dateMonth}/${dateDay}/${dateYear}`;
 };

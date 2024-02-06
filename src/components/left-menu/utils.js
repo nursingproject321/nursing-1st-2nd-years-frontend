@@ -9,34 +9,34 @@ import PersonPinIcon from "@mui/icons-material/PersonPin";
 export const DrawerWidth = 300;
 
 export const Menus = [
-    {
-        id: "students",
-        name: "Students",
-        Icon: PeopleAltIcon
-    },
-    {
-        id: "hospitals",
-        name: "Hospitals",
-        Icon: LocalHospitalIcon
-    },
-    {
-        id: "schools",
-        name: "Schools",
-        Icon: SchoolIcon
-    },
-    {
-        id: "instructors",
-        name: "Instructors",
-        Icon: PersonIcon
-    },
-    {
-        id: "placement-locations",
-        name: "Placement Locations",
-        Icon: LocationOnIcon
-    },
-    {
-        id: "placements",
-        name: "Placements",
-        Icon: PersonPinIcon
-    }
+  {
+    id: "students",
+    name: "Students",
+    Icon: PeopleAltIcon,
+  },
+  {
+    id: "hospitals",
+    name: "Hospitals / Agencies",
+    Icon: LocalHospitalIcon,
+  },
+  {
+    id: "schools",
+    name: "Schools",
+    Icon: SchoolIcon,
+  },
+  {
+    id: "instructors",
+    name: "Instructors",
+    Icon: PersonIcon,
+  },
+  {
+    id: "placement-locations",
+    name: "Placement Locations",
+    Icon: LocationOnIcon,
+  },
+  {
+    id: "placements",
+    name: "Placements",
+    Icon: PersonPinIcon,
+  },
 ];
