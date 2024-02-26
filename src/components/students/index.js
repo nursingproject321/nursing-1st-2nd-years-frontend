@@ -286,13 +286,14 @@ function Students() {
         },
       },
       {
-        name: "placementsHistoryLength",
+        name: "placementLocationsHistory",
         label: "Placements",
         options: {
           filter: false,
           search: true,
           // eslint-disable-next-line react/no-unstable-nested-components
-          customBodyRender: (value) => (value > 0 ? value : <em>None</em>),
+          customBodyRender: (value) =>
+            value.length ? value[0].name : <em>None</em>,
         },
       },
       {
