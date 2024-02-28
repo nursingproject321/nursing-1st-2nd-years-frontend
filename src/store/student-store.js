@@ -28,11 +28,6 @@ export default class StudentStore {
           placementsHistoryLength: obj.placementsHistory?.length || 0,
         }));
 
-        data.map((obj) => {
-          console.log("====================================");
-          console.log("----", obj);
-          console.log("====================================");
-        });
         this.totalCount = totalCount;
         this.fetched = true;
       } else {
