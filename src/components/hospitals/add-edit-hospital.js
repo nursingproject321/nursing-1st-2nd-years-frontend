@@ -69,9 +69,6 @@ export default function AddEditHospital() {
     let err = null;
 
     if (!address) {
-      console.log("====================================");
-      console.log("error in hospital");
-      console.log("====================================");
       err = "Please enter the address";
     }
 
