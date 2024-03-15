@@ -215,18 +215,73 @@ function Students() {
         </Box>
     ), []);
 
+    
+    const CustomTableCell = ({ value }) => {
+        return (
+            <Tooltip 
+                title={value} 
+                arrow 
+                placement="top"
+            >
+                <div 
+                    style={{
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap"
+                        // maxWidth: "100px" 
+                    }}
+                >
+                    {value}
+                </div>
+            </Tooltip>
+        );
+    };
+    
     const columns = useMemo(() => [
         {
-            name: "studentId", label: "Student ID", options: { filter: false }
+            name: "studentId", label: "Student ID", options: { filter: false, setCellProps: () => ({ style: { minWidth: "120px", maxWidth: "120px", width: "120px" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    boxSizing: "border-box"
+                }}>
+                    <CustomTableCell value={value} />
+                </div>
+            ) }
         },
         {
-            name: "fname", label: "First name", options: { filter: false }
+            name: "fname", label: "First name", options: { filter: false, setCellProps: () => ({ style: { minWidth: "120px", maxWidth: "120px", width: "120px" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis"
+                }}>
+                    <CustomTableCell value={value} />
+                </div>
+            ) }
         },
         {
-            name: "lname", label: "Last name", options: { filter: false }
+            name: "lname", label: "Last name", options: { filter: false, setCellProps: () => ({ style: { minWidth: "120px", maxWidth: "120px", width: "120px" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis"
+                }}>
+                    <CustomTableCell value={value} />
+                </div>
+            ) }
         },
         {
-            name: "email", label: "Email", options: { filter: false }
+            name: "email", label: "Email", options: { filter: false, setCellProps: () => ({ style: { minWidth: "200px", maxWidth: "200px", width: "200px" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis"
+                }}>
+                    <CustomTableCell value={value} />
+                </div>
+            ) }
         },
         // {
         //     name: "phoneNumber", label: "Phone number"
@@ -240,7 +295,7 @@ function Students() {
                 filterType: "dropdown",
                 filterOptions: { names: StudyYearList },
                 filterList: filters.study_year ? [filters.study_year] : [],
-                customBodyRender: (value) => <div style={{ textAlign: "center" }}>{value}</div>
+                setCellProps: () => ({ style: { textAlign:"center", minWidth: "85px", maxWidth: "85px", width: "85px" }})
             }
         },               
         {
@@ -250,7 +305,8 @@ function Students() {
                 filter: true,
                 filterType: "dropdown",
                 filterOptions: { names: getYearsList() },
-                filterList: filters.year ? [filters.year] : []
+                filterList: filters.year ? [filters.year] : [],
+                setCellProps: () => ({ style: { minWidth: "80px", maxWidth: "80px", width: "80px" }})
             }
         },
         {
@@ -260,7 +316,8 @@ function Students() {
                 filter: true,
                 filterType: "dropdown",
                 filterOptions: { names: TermsList },
-                filterList: filters.term ? [filters.term] : []
+                filterList: filters.term ? [filters.term] : [],
+                setCellProps: () => ({ style: { minWidth: "100px", maxWidth: "100px", width: "100px" }})
             }
         },
         {
@@ -268,12 +325,24 @@ function Students() {
             label: "Placements",
             options: {
                 filter: false,
+                setCellProps: () => ({ style: { minWidth: "100px", maxWidth: "100px", width: "100px", textAlign: "center" }}),
                 // eslint-disable-next-line react/no-unstable-nested-components
                 customBodyRender: (value) => (value > 0 ? value : <em>None</em>)
             }
         },
         {
-            name: "notes", label: "Notes", options: { filter: false }
+            name: "notes", label: "Notes", options: { filter: false, setCellProps: () => ({ style: { 
+                minWidth: "200px", maxWidth: "200px", width: "200px" }}), overflowTooltip: true, 
+            customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis"
+                }}>
+                    <CustomTableCell value={value} />
+                </div>
+            )
+            }
         },
         {
             name: "",
@@ -311,7 +380,8 @@ function Students() {
                             />
                         </Tooltip>
                     </Box>
-                )
+                ),
+                width: "100px"
             }
         }
     ], [filters]);
@@ -397,6 +467,9 @@ function Students() {
                         }
                     },
                     onRowClick: (data, tableMeta) => handleEditRow(tableMeta.rowIndex),
+                    setCellProps: (cellProps) => ({
+                        style: { width: cellProps.columnDef.options.width }
+                    }),
                     center: true
                 }}
             />
