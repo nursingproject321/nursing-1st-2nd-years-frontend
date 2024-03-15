@@ -123,18 +123,78 @@ function Instructors() {
         </Box>
     ), []);
 
+    const CustomTableCell = ({ value }) => {
+        return (
+            <Tooltip 
+                title={value} 
+                arrow 
+                placement="top-start"
+            >
+                <div 
+                    style={{
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap"
+                    }}
+                >
+                    {value}
+                </div>
+            </Tooltip>
+        );
+    };
+
     const columns = useMemo(() => [
         {
-            name: "fname", label: "First Name"
+            name: "fname", label: "First Name", options: { setCellProps: () => ({ style: { minWidth: "20%", maxWidth: "20%", width: "20%" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    boxSizing: "border-box"
+                }}>
+                    <CustomTableCell value={value} />
+                </div>
+            )
+            }
         },
         {
-            name: "lname", label: "Last Name"
+            name: "lname", label: "Last Name", options: { setCellProps: () => ({ style: { minWidth: "20%", maxWidth: "20%", width: "20%" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    boxSizing: "border-box"
+                }}>
+                    <CustomTableCell value={value} />
+                </div>
+            )
+            }
         },
         {
-            name: "email", label: "Email Address"
+            name: "email", label: "Email Address", options: { setCellProps: () => ({ style: { minWidth: "30%", maxWidth: "30%", width: "30%" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    boxSizing: "border-box"
+                }}>
+                    <CustomTableCell value={value} />
+                </div>
+            )
+            }
         },
         {
-            name: "comments", label: "Comments"
+            name: "comments", label: "Comments", options: { setCellProps: () => ({ style: { minWidth: "20%", maxWidth: "20%", width: "20%" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    boxSizing: "border-box"
+                }}>
+                    <CustomTableCell value={value} />
+                </div>
+            )
+            }
         },
         {
             name: "",

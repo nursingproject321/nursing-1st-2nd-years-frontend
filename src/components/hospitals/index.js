@@ -126,13 +126,40 @@ function Hospitals() {
 
     const columns = useMemo(() => [
         {
-            name: "name", label: "Name"
+            name: "name", label: "Name", options: { setCellProps: () => ({ style: { minWidth: "25%", maxWidth: "25%", width: "25%" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    boxSizing: "border-box"
+                }}>
+                    {value}
+                </div>
+            )}
         },
         {
-            name: "campus", label: "Campus"
+            name: "campus", label: "Campus", options: { setCellProps: () => ({ style: { minWidth: "25%", maxWidth: "25%", width: "25%" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    boxSizing: "border-box"
+                }}>
+                    {value}
+                </div>
+            ) }
         },
         {
-            name: "address", label: "Address"
+            name: "address", label: "Address", options: { setCellProps: () => ({ style: { minWidth: "40%", maxWidth: "40%", width: "40%" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    boxSizing: "border-box"
+                }}>
+                    {value}
+                </div>
+            ) }
         },
         {
             name: "",
