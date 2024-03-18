@@ -125,10 +125,30 @@ function Schools() {
 
     const columns = useMemo(() => [
         {
-            name: "name", label: "Name"
+            name: "name", label: "Name", options: { setCellProps: () => ({ style: { minWidth: "40%", maxWidth: "40%", width: "40%" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    boxSizing: "border-box"
+                }}>
+                    {value}
+                </div>
+            )
+            }
         },
         {
-            name: "campus", label: "Campus"
+            name: "campus", label: "Campus", options: { setCellProps: () => ({ style: { minWidth: "50%", maxWidth: "50%", width: "50%" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    boxSizing: "border-box"
+                }}>
+                    {value}
+                </div>
+            )
+            }
         },
         {
             name: "",

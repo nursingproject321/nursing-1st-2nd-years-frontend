@@ -124,13 +124,52 @@ function PlacementLocations() {
         </Box>
     ), []);
 
+    const CustomTableCell = ({ value }) => {
+        return (
+            <Tooltip 
+                title={value} 
+                arrow 
+                placement="top"
+            >
+                <div 
+                    style={{
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap"
+                        // maxWidth: "100px" 
+                    }}
+                >
+                    {value}
+                </div>
+            </Tooltip>
+        );
+    };
+
     const columns = useMemo(() => [
         {
-            name: "name", label: "Name"
+            name: "name", label: "Name", options: { filter: false, setCellProps: () => ({ style: { minWidth: "150px", maxWidth: "150px", width: "150px" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    boxSizing: "border-box"
+                }}>
+                    <CustomTableCell value={value} />
+                </div>
+            ) }
         },
         {
             name: "hospital",
-            label: "Campus"
+            label: "Campus", options: { filter: false, setCellProps: () => ({ style: { minWidth: "200px", maxWidth: "200px", width: "200px" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    boxSizing: "border-box"
+                }}>
+                    <CustomTableCell value={value} />
+                </div>
+            ) }
             // options: {
             //     // eslint-disable-next-line react/no-unstable-nested-components
             //     customBodyRender: (value) => {
@@ -151,7 +190,16 @@ function PlacementLocations() {
         },
         {
             name: "instructor",
-            label: "Instructor"
+            label: "Instructor", options: { filter: false, setCellProps: () => ({ style: { minWidth: "150px", maxWidth: "150px", width: "150px" }}), customBodyRender: (value) => (
+                <div style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    boxSizing: "border-box"
+                }}>
+                    <CustomTableCell value={value} />
+                </div>
+            ) }
             // options: {
             //     // eslint-disable-next-line react/no-unstable-nested-components
             //     customBodyRender: (value) => {
@@ -171,10 +219,10 @@ function PlacementLocations() {
             // }
         },
         {
-            name: "unit", label: "Unit"
+            name: "unit", label: "Unit", options: { filter: false, setCellProps: () => ({ style: { textAlign: "center" }})}
         },
         {
-            name: "section", label: "Section"
+            name: "section", label: "Section", options: { filter: false, setCellProps: () => ({ style: { textAlign: "center" }})}
         },
         {
             name: "day", label: "Day"
@@ -183,7 +231,7 @@ function PlacementLocations() {
             name: "shift", label: "Shift"
         },
         {
-            name: "seats", label: "Seats"
+            name: "seats", label: "Seats", options: { filter: false, setCellProps: () => ({ style: { textAlign: "center" }})}
         },
         {
             name: "",
