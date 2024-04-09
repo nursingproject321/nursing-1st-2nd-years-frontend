@@ -270,7 +270,7 @@ export default function AddEditStudent() {
           />
         </Stack>{" "}
         <SelectBox
-          label="Place Student"
+          label="Do not place student"
           ref={isFlaggedRef}
           required
           selected={editObj && editObj.isFlagged == true ? "Yes" : "No" || ""}
